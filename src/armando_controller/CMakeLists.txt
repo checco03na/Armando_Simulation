@@ -20,6 +20,7 @@ find_package(orocos_kdl REQUIRED)
 find_package(urdf REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(aruco_msgs REQUIRED)
 # ------------------------------------------------------
 
 include_directories(include)
@@ -65,10 +66,21 @@ ament_target_dependencies(armando_ik_kdl_node
 target_link_libraries(armando_ik_kdl_node orocos-kdl)
 
 
+
+add_executable(aruco_target_adapter src/aruco_target_adapter.cpp)
+ament_target_dependencies(aruco_target_adapter
+  rclcpp
+  aruco_msgs
+  geometry_msgs
+  tf2
+  tf2_geometry_msgs
+)
+
 install(TARGETS 
   armando_controller_node
   armando_pick_place_node
   armando_ik_kdl_node
+  aruco_target_adapter
   DESTINATION lib/${PROJECT_NAME}
 )
 

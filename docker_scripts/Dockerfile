@@ -13,7 +13,7 @@ WORKDIR /root
 RUN echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries
 
 # Install essential build tools, Gazebo Harmonic repo, and ROS utilities
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN sed -i "s|http://archive.ubuntu.com|http://it.archive.ubuntu.com|g" /etc/apt/sources.list && apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     gnupg \
     curl \
@@ -51,6 +51,7 @@ RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-reco
     ros-humble-tf2-ros \
     ros-humble-urdf \
     ros-humble-urdf-launch \
+    ros-humble-aruco-ros \
     ros-humble-xacro \
     ros-humble-joint-state-publisher-gui \
     ros-humble-rviz2 \
